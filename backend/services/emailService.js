@@ -10,7 +10,13 @@ const createTransporter = () => {
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS
-    }
+    },
+    tls: {
+      rejectUnauthorized: false // WHY: Accept self-signed certificates
+    },
+    connectionTimeout: 10000, // WHY: 10 second timeout
+    greetingTimeout: 10000,
+    socketTimeout: 10000
   });
 };
 
