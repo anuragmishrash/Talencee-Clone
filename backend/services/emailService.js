@@ -76,6 +76,11 @@ const sendApplicationEmail = async (applicationData, resumePath = null) => {
   } catch (error) {
     // WHY: Log error but don't throw - email failure shouldn't fail the application submission
     console.error('❌ Email sending failed:', error.message);
+    console.error('Error details:', {
+      code: error.code,
+      command: error.command,
+      response: error.response
+    });
     return { success: false, error: error.message };
   }
 };
@@ -116,6 +121,11 @@ const sendAcknowledgmentEmail = async (applicantEmail, applicantName) => {
   } catch (error) {
     // WHY: Log error but don't throw
     console.error('❌ Acknowledgment email failed:', error.message);
+    console.error('Error details:', {
+      code: error.code,
+      command: error.command,
+      response: error.response
+    });
     return { success: false, error: error.message };
   }
 };
