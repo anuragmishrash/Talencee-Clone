@@ -89,6 +89,22 @@ app.use('/api/jobs', jobRoutes);
 // WHY: Mount application routes at /api/applications for job applications
 app.use('/api/applications', applicationRoutes);
 
+// Root Route Handler
+// WHY: Handle root route requests from Render health checks
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Talencee Backend API',
+    version: '1.0.0',
+    endpoints: {
+      health: '/api/health',
+      content: '/api/content',
+      jobs: '/api/jobs',
+      applications: '/api/applications'
+    }
+  });
+});
+
 // Import Error Handlers
 const { errorHandler, notFoundHandler } = require('./middleware/errorMiddleware');
 
