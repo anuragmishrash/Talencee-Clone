@@ -51,11 +51,11 @@ const sendApplicationEmail = async (applicationData, resumePath = null) => {
       Application received at: ${new Date().toLocaleString()}
     `;
     
-    // WHY: Configure email options
+    // WHY: Configure email options - send to your Gmail
     const mailOptions = {
       from: process.env.FROM_EMAIL || process.env.SMTP_USER,
-      to: process.env.HR_EMAIL,
-      subject: 'New Application Received - Talencee India',
+      to: 'itsanuragmishra99@gmail.com', // Your Gmail to receive applications
+      subject: `New Job Application - ${applicationData.jobTitle || 'General'} - ${applicationData.name}`,
       text: emailBody
     };
     
