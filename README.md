@@ -2,6 +2,12 @@
 
 A modern, full-stack MERN job portal for Talencee India with dynamic content management, job listings, application system, and beautiful animations.
 
+## 🌐 Live Demo
+
+- **Frontend**: [https://talencee-clone.vercel.app/](https://talencee-clone.vercel.app/)
+- **Backend API**: [https://talencee-clone.onrender.com](https://talencee-clone.onrender.com)
+- **Admin Panel**: [https://talencee-clone.vercel.app/admin](https://talencee-clone.vercel.app/admin)
+
 ## 🚀 Features
 
 - **Dynamic Landing Page** with animated hero section, services, features, and testimonials
@@ -65,10 +71,12 @@ Create `backend/.env` file:
 ```env
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
-SMTP_HOST=smtp.gmail.com
+SMTP_HOST=smtp-relay.brevo.com
 SMTP_PORT=587
-SMTP_USER=your_email@gmail.com
-SMTP_PASS=your_app_password
+SMTP_USER=your-brevo-smtp-user@smtp-brevo.com
+SMTP_PASS=your-brevo-api-key
+FROM_EMAIL=your-verified-email@example.com
+HR_EMAIL=hr@talencee.com
 ADMIN_API_KEY=talencee-admin-2024-secure-key
 ```
 
@@ -143,10 +151,12 @@ git push origin main
 ```
 PORT=5000
 MONGO_URI=<your-mongodb-atlas-uri>
-SMTP_HOST=smtp.gmail.com
+SMTP_HOST=smtp-relay.brevo.com
 SMTP_PORT=587
-SMTP_USER=<your-email>
-SMTP_PASS=<your-app-password>
+SMTP_USER=<your-brevo-smtp-user>
+SMTP_PASS=<your-brevo-api-key>
+FROM_EMAIL=<your-verified-email>
+HR_EMAIL=hr@talencee.com
 ADMIN_API_KEY=talencee-admin-2024-secure-key
 ```
 
@@ -166,15 +176,22 @@ ADMIN_API_KEY=talencee-admin-2024-secure-key
 
 ## 📧 SMTP Configuration
 
-### Gmail Setup
-1. Enable 2-Factor Authentication
-2. Generate App Password: Google Account → Security → App Passwords
-3. Use app password in `SMTP_PASS`
+### Brevo (Sendinblue) Setup (Recommended)
+1. Sign up at [brevo.com](https://www.brevo.com)
+2. Go to **SMTP & API** → **SMTP**
+3. Copy your SMTP credentials:
+   - SMTP Server: `smtp-relay.brevo.com`
+   - Port: `587`
+   - Login: Your SMTP login
+   - Password: Your SMTP key
+4. Verify your sender email address
+5. Free tier: 300 emails/day
 
 ### Alternative SMTP Providers
-- SendGrid
-- Mailgun
-- AWS SES
+- **SendGrid** (100 emails/day free)
+- **Mailgun** (100 emails/day free)
+- **AWS SES** (62,000 emails/month free)
+- **Gmail** (Not recommended for cloud hosting - often blocked)
 
 ## 🔑 Admin Access
 
@@ -247,9 +264,11 @@ PORT=5001
 - Ensure database user has correct permissions
 
 ### Email Not Sending
-- Verify SMTP credentials
-- Check Gmail app password (not regular password)
-- Enable "Less secure app access" if needed
+- Verify SMTP credentials in Render environment variables
+- Check Brevo sender email is verified
+- Ensure `FROM_EMAIL` matches verified email in Brevo
+- Check Render logs for detailed error messages
+- Note: Gmail SMTP often doesn't work on cloud platforms (use Brevo instead)
 
 ## 📝 License
 

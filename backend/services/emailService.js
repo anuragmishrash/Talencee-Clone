@@ -53,9 +53,9 @@ const sendApplicationEmail = async (applicationData, resumePath = null) => {
     
     // WHY: Configure email options
     const mailOptions = {
-      from: process.env.SMTP_USER,
+      from: process.env.FROM_EMAIL || process.env.SMTP_USER,
       to: process.env.HR_EMAIL,
-      subject: 'New Application Received',
+      subject: 'New Application Received - Talencee India',
       text: emailBody
     };
     
@@ -106,9 +106,9 @@ const sendAcknowledgmentEmail = async (applicantEmail, applicantName) => {
     
     // WHY: Configure email options
     const mailOptions = {
-      from: process.env.SMTP_USER,
+      from: process.env.FROM_EMAIL || process.env.SMTP_USER,
       to: applicantEmail,
-      subject: 'Application Received - Talencee',
+      subject: 'Application Received - Talencee India',
       text: emailBody
     };
     

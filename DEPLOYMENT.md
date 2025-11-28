@@ -40,10 +40,12 @@ git push -u origin main
    ```
    PORT=5000
    MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/talencee?retryWrites=true&w=majority
-   SMTP_HOST=smtp.gmail.com
+   SMTP_HOST=smtp-relay.brevo.com
    SMTP_PORT=587
-   SMTP_USER=your-email@gmail.com
-   SMTP_PASS=your-app-password
+   SMTP_USER=your-brevo-smtp-login
+   SMTP_PASS=your-brevo-smtp-key
+   FROM_EMAIL=your-verified-email@example.com
+   HR_EMAIL=hr@talencee.com
    ADMIN_API_KEY=talencee-admin-2024-secure-key
    ```
 
@@ -99,14 +101,20 @@ git push -u origin main
    - Replace `<password>` with your database password
    - Replace `<dbname>` with `talencee`
 
-### 5. Gmail SMTP Setup
+### 5. Brevo (Sendinblue) SMTP Setup
 
-1. Go to Google Account Settings
-2. Enable **2-Factor Authentication**
-3. Go to Security → App Passwords
-4. Generate new app password for "Mail"
-5. Copy the 16-character password
-6. Use this in `SMTP_PASS` environment variable
+1. Go to https://www.brevo.com and sign up
+2. Verify your email address
+3. Go to **SMTP & API** → **SMTP** in dashboard
+4. Copy your SMTP credentials:
+   - Server: `smtp-relay.brevo.com`
+   - Port: `587`
+   - Login: (your SMTP login)
+   - Key: (your SMTP key)
+5. Go to **Senders** → Verify your sender email
+6. Free tier: 300 emails/day
+
+**Note**: Gmail SMTP doesn't work reliably on cloud platforms like Render. Brevo is designed for this use case.
 
 ### 6. Test Your Deployment
 
@@ -124,10 +132,12 @@ git push -u origin main
 ```env
 PORT=5000
 MONGO_URI=mongodb+srv://...
-SMTP_HOST=smtp.gmail.com
+SMTP_HOST=smtp-relay.brevo.com
 SMTP_PORT=587
-SMTP_USER=your-email@gmail.com
-SMTP_PASS=your-16-char-app-password
+SMTP_USER=your-brevo-smtp-login
+SMTP_PASS=your-brevo-smtp-key
+FROM_EMAIL=your-verified-email@example.com
+HR_EMAIL=hr@talencee.com
 ADMIN_API_KEY=talencee-admin-2024-secure-key
 ```
 
